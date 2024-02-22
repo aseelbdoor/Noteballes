@@ -19,7 +19,6 @@
             </tbody>
         </table>
         <input type="text" v-auto-focus v-model="opinion" class="input" placeholder="Do you love Noteballes?" />
-        <div><small class="feedback">Why?</small></div>
     </div>
 </template>
 
@@ -50,19 +49,5 @@ useWatchCharacters(opinion)
 .stats .input{
     margin: auto !important;
     width: 50%;
-}
-.stats div{
-    width: 50%;
-}
-.stats div .feedback{
-    text-align: end;
-}
-
-.red{
-    color: red;
-}
-
-.green{
-    color: green;
 }
 </style>
