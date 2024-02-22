@@ -30,9 +30,43 @@ export const useNotesStore = defineStore('noteStore', () => {
   }
 
   const deleteNote = (id: string) => {
-    
+
     notes.value = notes.value.filter((item) => item.id !== id)
   }
 
-  return { notes, addNote, deleteNote }
+  const newNote = ref('');
+
+  const resetNote=()=>{
+    newNote.value='';
+  }
+
+  const getNoteContnt=(id:string) : string =>{
+    let result="";
+
+    if (notes.value.find((item)=>item.id===id)){
+      const findNote=notes.value.filter(note=>{
+        return note.id === id;
+      })
+      result=findNote[0].content;
+    }
+    return result;
+  }
+
+  const updateNote=(id:string,content:string)=>{
+    const index=notes.value.findIndex((item)=>item.id===id);
+    notes.value[index].content=content;
+  }
+
+  const notesDetails=()=>{
+    const numberOfNotes = notes.value.length;
+    const allCharactureList= notes.value.map((item)=>{
+      return item.content.length;
+    })
+    const totalCharacterCount=allCharactureList.reduce((accumulator,currentValue)=>{return accumulator+currentValue},0);
+
+    return {numberOfNotes,totalCharacterCount};
+  }
+
+  return { notes, addNote, deleteNote, newNote, resetNote, getNoteContnt,
+    updateNote, notesDetails }
 })

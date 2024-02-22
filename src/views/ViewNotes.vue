@@ -1,17 +1,10 @@
 <template>
     <div class="notes m-5 container">
-        <div class="form mb-4">
-            <div class="field ">
-                <div class="control">
-                    <textarea name="textarea" class="textarea" v-model="newNote" placeholder="Add a new note" ref="newNoteRef"></textarea>
-                </div>
-            </div>
-            <div class="field is-grouped is-grouped-right">
-                <div class="control">
-                    <button @click.prevent="addNote" :disabled="!newNote" class="button is-success">Add Note</button>
-                </div>
-            </div>
-        </div>
+        <AddEditNote ref="addEditNoteRef">
+            <template v-slot:buttons>
+                <button @click.prevent="addNote" :disabled="!Store.newNote" class="button is-success">Add Note</button>
+            </template>
+        </AddEditNote>
         <NoteComponent v-for="note in Store.notes" :key="note.id" :note="note" />
     </div>
 </template>
@@ -21,15 +14,15 @@
 import { ref } from 'vue';
 import NoteComponent from '@/components/Notes/NoteCom.vue';
 import { useNotesStore } from '@/stores/storeNotes';
+import AddEditNote from '@/components/Notes/AddEditNote.vue';
 
-const newNoteRef=ref();
-const newNote=ref('');
-const Store=useNotesStore();
+const Store = useNotesStore();
+const addEditNoteRef=ref();
 
-const addNote=()=>{
-    Store.addNote(newNote.value)
-    newNote.value='';
-    newNoteRef.value.focus();
+const addNote = () => {
+    Store.addNote(Store.newNote)
+    Store.newNote = '';
+    addEditNoteRef.value.focusTextarea()
 };
 
 </script>
@@ -44,7 +37,7 @@ const addNote=()=>{
 .form {
     width: 700px !important;
     margin: auto;
-    background-color: rgb(91, 107, 91);
+    /* background-color: rgb(91, 107, 91); */
     padding: 3%;
     border-radius: 5px;
 }
