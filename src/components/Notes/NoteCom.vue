@@ -2,8 +2,9 @@
     <div class="card mb-4 ">
         <div class="card-content">
             <div class="content"> {{ note.content }}
-                <div class="has-text-right has-text-grey-light mt-2">
-                    <small>{{ charachterLength }}</small>
+                <div class="columns is-mobile  has-text-grey-light mt-2">
+                    <small class="column">{{ dataFormated }}</small>
+                    <small class="column has-text-right ">{{ charachterLength }}</small>
                 </div>
             </div>
         </div>
@@ -18,7 +19,14 @@
 
 <script setup lang="ts" >
 import { computed } from 'vue';
+import { useDateFormat } from '@vueuse/core';
 import { useNotesStore } from '@/stores/storeNotes';
+
+const dataFormated=computed(()=>{
+    const date = new Date(parseInt(props.note.date));
+    const formated= useDateFormat(date, 'DD-MM-YYYY @ HH:mm')
+    return formated.value
+})
 
 const charachterLength = computed(() => {
     let length = props.note.content.length;

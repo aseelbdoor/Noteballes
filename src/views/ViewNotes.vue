@@ -5,7 +5,14 @@
                 <button @click.prevent="addNote" :disabled="!Store.newNote" class="button is-success">Add Note</button>
             </template>
         </AddEditNote>
-        <NoteComponent v-for="note in Store.notes" :key="note.id" :note="note" />
+        <progress v-if="!Store.notesLoaded" class="progress is-large is-success" max="100"></progress>
+        <template v-else>
+            <NoteComponent v-for="note in Store.notes" :key="note.id" :note="note" />
+            <div v-if="!Store.notes.length" class="is-size-5 has-text-centered has-text-gray-light py-6">
+            No notes here yet ...
+            </div>
+        </template>
+        
     </div>
 </template>
 
