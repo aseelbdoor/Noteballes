@@ -30,7 +30,7 @@ const addNote = () => {
     Store.addNote(Store.newNote)
     Store.newNote = '';
     addEditNoteRef.value.focusTextarea()
-};
+}
 
 </script>
 

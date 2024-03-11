@@ -14,6 +14,13 @@
         </div>
 
         <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': showMobileNav }">
+            <div class="navbar-start">
+                <button 
+                v-if="authStore.User.id"
+                @click="logout" class="button is-small bold has-text-weight-bold is-success mt-3 ml-3" >
+                    Logout
+                </button>
+            </div>
             <div class="navbar-end">
                 <RouterLink @click="showMobileNav=false" to="/" class="navbar-item" active-class="is-active">Notes</RouterLink>
 
@@ -26,6 +33,14 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import { ref } from "vue";
+import { useAuthStore } from "@/stores/storeAuth";
 
 const showMobileNav = ref(false)
+const  authStore = useAuthStore()
+
+const logout=()=>{
+    showMobileNav.value=false
+    authStore.logOut()
+}
+
 </script>
