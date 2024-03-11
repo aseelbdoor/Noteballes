@@ -65,12 +65,7 @@ export const useNotesStore = defineStore('noteStore', () => {
   const addNote = async (newNote: string) => {
     const currentDate = new Date().getTime()
     const date = currentDate.toString()
-    // Add a new document in collection "notes"
-    // await setDoc(doc(collectionRef, id), {
-    //   content: newNote,
-    //   id
-    // })
-
+    
     // Add a new document with a generated id.
     await addDoc(collectionRef, {
       content: newNote,
